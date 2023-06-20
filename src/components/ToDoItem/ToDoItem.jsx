@@ -16,25 +16,37 @@ const ToDoItem = ({
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleDeleteWithAnimation = () => {
-        setIsDeleting(true)
+        setIsDeleting(true);
         setTimeout(() => {
             handleDelete(id);
         }, animationDuration);
     };
 
     return (
-        <li className={cn(styles.item, {
-            [styles.item_hide]: isDeleting
-        })}>
+        <li
+            className={cn(styles.item, {
+                [styles.item_hide]: isDeleting,
+            })}
+        >
             <div className={styles.header}>
-                <h2 className={styles.todotitle}>{title}</h2>
+                <h2
+                    className={cn(styles.todotitle, {
+                        [styles.item_completed]: status === 'completed',
+                    })}
+                >
+                    {title}
+                </h2>
                 <div>
                     <span className={styles.status}>{status}</span>
                     <span className={styles.date}>{created_at}</span>
                 </div>
             </div>
 
-            <div className={styles.content}>
+            <div
+                className={cn(styles.content, {
+                    [styles.item_completed]: status === 'completed',
+                })}
+            >
                 <p className={styles.description}>{description}</p>
             </div>
             <button
